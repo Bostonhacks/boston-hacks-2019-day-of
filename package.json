@@ -1,0 +1,31 @@
+{
+  "name": "boston-hacks-2019-day-of",
+  "version": "1.0.0",
+  "description": "Day of Check in Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "export GOOGLE_APPLICATION_CREDENTIALS=./bostonhacks2019-day-of-33337eade91b.json && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bostonhacks/boston-hacks-2019-day-of.git"
+  },
+  "keywords": [
+    "Swag",
+    "Dank",
+    "Node",
+    "Rishab"
+  ],
+  "author": "Rishab Nayak <rishab@bu.edu> (rishabnayak.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bostonhacks/boston-hacks-2019-day-of/issues"
+  },
+  "homepage": "https://github.com/Bostonhacks/boston-hacks-2019-day-of#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^4.0.0",
+    "edit-json-file": "^1.3.1",
+    "googleapis": "^39.2.0"
+  }
+}

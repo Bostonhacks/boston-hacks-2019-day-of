@@ -6,6 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# Keys
+client_secret_919481446476-l706901bs3orr9o23ikcp3jvmn4e2eks.apps.googleusercontent.com.json
+bostonhacks2019-day-of-33337eade91b.json
+token.json
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
