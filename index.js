@@ -81,13 +81,13 @@ function createPasses(auth) {
     const sheets = google.sheets({ version: 'v4', auth });
     sheets.spreadsheets.values.get({
         spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-        range: 'A2:D714',
+        range: 'A2:D900',
     }, async (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
         const rows = res.data.values;
         if (rows.length) {
             for (let index = 0; index < rows.length; index++) {
-                if (rows[index][3] == 0) {
+                if (rows[index][4] == 0) {
                     var json = JSON.parse(fs.readFileSync('./Event.pass/pass.json').toString());
                     json.barcode.message = rows[index][0].toString();
                     json.serialNumber = rows[index][0].toString();
@@ -110,7 +110,7 @@ function createPasses(auth) {
                     };
                     sheets.spreadsheets.values.update({
                         spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-                        range: `D${index + 2}`,
+                        range: `E${index + 2}`,
                         valueInputOption: 'RAW',
                         resource
                     }, (err, resp) => {
@@ -119,7 +119,7 @@ function createPasses(auth) {
                         resource = { values };
                         sheets.spreadsheets.values.update({
                             spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-                            range: `J${index + 2}`,
+                            range: `K${index + 2}`,
                             valueInputOption: 'RAW',
                             resource
                         }, (err, resp) => {
@@ -128,7 +128,7 @@ function createPasses(auth) {
                             resource = { values };
                             sheets.spreadsheets.values.update({
                                 spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-                                range: `K${index + 2}`,
+                                range: `L${index + 2}`,
                                 valueInputOption: 'RAW',
                                 resource
                             }, (err, resp) => {

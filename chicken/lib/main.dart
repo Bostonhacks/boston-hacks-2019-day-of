@@ -10,7 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:typed_data';
 
-void main() => runApp(MaterialApp(home: _MyHomePage(), debugShowCheckedModeBanner: false,));
+void main() => runApp(MaterialApp(
+      home: _MyHomePage(),
+      debugShowCheckedModeBanner: false,
+    ));
 
 class _MyHomePage extends StatefulWidget {
   @override
@@ -21,17 +24,18 @@ class _MyHomePageState extends State<_MyHomePage> {
   CameraLensDirection _direction = CameraLensDirection.back;
   bool _runDetection = false;
   bool _isDetecting = false;
-  var _scanResults;
   CameraController _camera;
-  var data;
   var _isCheckedIn = false;
   var _food1Status = false;
   var _food2Status = false;
   var _food3Status = false;
   var _food4Status = false;
-  var stackIndex = 0;
-  var index;
   var userNotFoundError;
+  var stackIndex = 0;
+  var _scanResults;
+  var index;
+  var data;
+
   static final accountCredentials =
       new auth.ServiceAccountCredentials.fromJson(r'''
       {
@@ -52,19 +56,6 @@ class _MyHomePageState extends State<_MyHomePage> {
   void initState() {
     super.initState();
     _initializeCamera();
-    _getData();
-  }
-
-  _getData() {
-    auth.clientViaServiceAccount(accountCredentials, scopes).then((onValue) {
-      sheets.SheetsApi(onValue)
-          .spreadsheets
-          .values
-          .get('1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw', 'A2:I714')
-          .then((onValue) {
-        data = onValue;
-      });
-    });
   }
 
   Future<CameraDescription> getCamera(CameraLensDirection dir) async {
@@ -136,7 +127,21 @@ class _MyHomePageState extends State<_MyHomePage> {
                         shape: new RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(5.0),
                             side: BorderSide(color: Colors.blue)),
-                        onPressed: () {
+                        onPressed: () async {
+                          final rawData = await auth
+                              .clientViaServiceAccount(
+                                  accountCredentials, scopes)
+                              .then((onValue) {
+                            return sheets.SheetsApi(onValue)
+                                .spreadsheets
+                                .values
+                                .get(
+                                    '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
+                                    'A2:J900');
+                          });
+                          setState(() {
+                            data = rawData;
+                          });
                           _runDetection = true;
                           stackIndex = 1;
                         },
@@ -175,7 +180,7 @@ class _MyHomePageState extends State<_MyHomePage> {
                   _rotationIntToImageRotation(description.sensorOrientation)),
             ),
           )
-          .then((onValue) {
+          .then((onValue) async {
         setState(() {});
         if (onValue.isNotEmpty) {
           _runDetection = false;
@@ -185,11 +190,11 @@ class _MyHomePageState extends State<_MyHomePage> {
           if (index > -1) {
             setState(() {
               _scanResults = data.values[index - 2];
-              _isCheckedIn = data.values[index - 2][4] as bool;
-              _food1Status = data.values[index - 2][5] as bool;
-              _food2Status = data.values[index - 2][6] as bool;
-              _food3Status = data.values[index - 2][7] as bool;
-              _food4Status = data.values[index - 2][8] as bool;
+              _isCheckedIn = data.values[index - 2][5] == "1" ? true : false;
+              _food1Status = data.values[index - 2][6] == "1" ? true : false;
+              _food2Status = data.values[index - 2][7] == "1" ? true : false;
+              _food3Status = data.values[index - 2][8] == "1" ? true : false;
+              _food4Status = data.values[index - 2][9] == "1" ? true : false;
             });
           } else {
             userNotFoundError = "User Not Found";
@@ -245,7 +250,16 @@ class _MyHomePageState extends State<_MyHomePage> {
                               children: <Widget>[
                                 ListTile(
                                   title: Text(_scanResults[1]),
-                                  subtitle: Text(_scanResults[2]),
+                                  subtitle: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(_scanResults[2]),
+                                      Text(
+                                          "Dietary Restriction: ${_scanResults[3]}"),
+                                    ],
+                                  ),
                                 ),
                                 CheckboxListTile(
                                   title: Text("Check-In Status"),
@@ -322,6 +336,7 @@ class _MyHomePageState extends State<_MyHomePage> {
                                                   data.values[index - 2][1],
                                                   data.values[index - 2][2],
                                                   data.values[index - 2][3],
+                                                  data.values[index - 2][4],
                                                   _isCheckedIn == true ? 1 : 0,
                                                   _food1Status == true ? 1 : 0,
                                                   _food2Status == true ? 1 : 0,
@@ -331,7 +346,7 @@ class _MyHomePageState extends State<_MyHomePage> {
                                               ]
                                             }),
                                             '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-                                            'A$index:I$index',
+                                            'A$index:J$index',
                                             valueInputOption: "RAW")
                                         .then((onValue) {
                                       setState(() {
