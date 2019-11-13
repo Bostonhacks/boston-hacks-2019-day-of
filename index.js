@@ -1,5 +1,4 @@
 const fs = require('fs');
-const sys = require('sys')
 const readline = require('readline');
 var execSync = require('child_process').execSync;
 const { google } = require('googleapis');
@@ -82,13 +81,13 @@ function createPasses(auth) {
     const sheets = google.sheets({ version: 'v4', auth });
     sheets.spreadsheets.values.get({
         spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-        range: 'A2:C10',
+        range: 'A2:D714',
     }, async (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
         const rows = res.data.values;
         if (rows.length) {
             for (let index = 0; index < rows.length; index++) {
-                if (rows[index][2] == 0) {
+                if (rows[index][3] == 0) {
                     var json = JSON.parse(fs.readFileSync('./Event.pass/pass.json').toString());
                     json.barcode.message = rows[index][0].toString();
                     json.serialNumber = rows[index][0].toString();
@@ -111,7 +110,7 @@ function createPasses(auth) {
                     };
                     sheets.spreadsheets.values.update({
                         spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-                        range: `C${index + 2}`,
+                        range: `D${index + 2}`,
                         valueInputOption: 'RAW',
                         resource
                     }, (err, resp) => {
@@ -120,11 +119,22 @@ function createPasses(auth) {
                         resource = { values };
                         sheets.spreadsheets.values.update({
                             spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
-                            range: `G${index + 2}`,
+                            range: `J${index + 2}`,
                             valueInputOption: 'RAW',
                             resource
                         }, (err, resp) => {
                             if (err) return console.log('The API returned an error: ' + err);
+                            values = [[`https://chart.apis.google.com/chart?chs=200x200&cht=qr&chld=|1&chl=${rows[index][0]}`]];
+                            resource = { values };
+                            sheets.spreadsheets.values.update({
+                                spreadsheetId: '1dD94ZpGxgyYovrNs11kOjv6cxj6XtUby7Zqz2TH-exw',
+                                range: `K${index + 2}`,
+                                valueInputOption: 'RAW',
+                                resource
+                            }, (err, resp) => {
+                                if (err) return console.log('The API returned an error: ' + err);
+
+                            });
                         });
                     });
                     fs.unlinkSync(`${rows[index][0]}.pkpass`);
