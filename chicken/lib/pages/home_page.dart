@@ -18,10 +18,10 @@ import 'dart:typed_data';
 class MyHomePage extends StatefulWidget {
   MyHomePage();
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
   CameraLensDirection _direction = CameraLensDirection.back;
   bool _runDetection = false;
   bool _isDetecting = false;
