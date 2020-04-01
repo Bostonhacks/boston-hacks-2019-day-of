@@ -22,8 +22,10 @@ dependencies:
   camera: ^0.5.2+1
   firebase_ml_vision:
   firebase_core: ^0.4.0
+  firebase_auth: ^0.15.5+3
   googleapis: 
   googleapis_auth:
+  google_sign_in: ^4.3.0
   redux: "^3.0.0"
   flutter_redux: "^0.5.0"
   redux_logging: "^0.3.0"
