@@ -11,6 +11,8 @@ class AppState {
     this.currentUser,                                           //new
   });
 
+  factory AppState.loading() => new AppState(isLoading: true);
+
   AppState copyWith({int count, bool isLoading}) {
     return new AppState(
       count: count ?? this.count,
@@ -20,7 +22,23 @@ class AppState {
   }
 
   @override
-  String toString() {                                           // changed
+  int get hashCode =>
+      isLoading.hashCode ^
+      count.hashCode ^
+      currentUser.hashCode;
+
+
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is AppState &&
+              runtimeType == other.runtimeType &&
+              isLoading == other.isLoading &&
+              count == other.count &&
+              currentUser == other.currentUser;
+
+
+  @override
+  String toString() {
     return 'AppState{isLoading: $isLoading, count: $count, currentUser: $currentUser}';
   }
 }

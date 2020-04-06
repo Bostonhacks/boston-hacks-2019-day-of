@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>919481446476-755o0ki674j8256j6f45huo1o0tu3ht4.apps.googleusercontent.com</string>
+	<string>256594659195-9do9927e6pug41iar88n4opuap82og2e.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.919481446476-755o0ki674j8256j6f45huo1o0tu3ht4</string>
+	<string>com.googleusercontent.apps.256594659195-9do9927e6pug41iar88n4opuap82og2e</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC9t4uwzPF73ZMTjK3WY6cLnXAsirkkamc</string>
+	<string>AIzaSyA0lxEAikbD7MvPbEY7KXe_ZtbOGYdYZ4Q</string>
 	<key>GCM_SENDER_ID</key>
-	<string>919481446476</string>
+	<string>256594659195</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.bostonhacks.chicken</string>
+	<string>com.bostonhacks.chicken-melissa</string>
 	<key>PROJECT_ID</key>
-	<string>bostonhacks2019-day-of</string>
+	<string>chicken-a91d4</string>
 	<key>STORAGE_BUCKET</key>
-	<string>bostonhacks2019-day-of.appspot.com</string>
+	<string>chicken-a91d4.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:919481446476:ios:e647737ecc3ecc430fc4e9</string>
+	<string>1:256594659195:ios:8c6d22ba9a8c1e89469fde</string>
 	<key>DATABASE_URL</key>
-	<string>https://bostonhacks2019-day-of.firebaseio.com</string>
+	<string>https://chicken-a91d4.firebaseio.com</string>
 </dict>
 </plist>

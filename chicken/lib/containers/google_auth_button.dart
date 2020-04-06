@@ -1,11 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 class GoogleAuthButton extends StatelessWidget {
   final String buttonText;
   final Function onPressedCallback;
 
-	// Passed in from Container
+  // Passed in from Container
   GoogleAuthButton({
     @required this.buttonText,
     this.onPressedCallback,
@@ -13,16 +13,16 @@ class GoogleAuthButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  	// Raised button is a widget that gives some
-  	// automatic Material design styles
+    // Raised button is a widget that gives some
+    // automatic Material design styles
     return new RaisedButton(
       onPressed: onPressedCallback,
       color: Colors.white,
       child: new Container(
-      	// Explicitly set height
-      	// Contianer has many options you can pass it,
-      	// Most widgets do *not* allow you to explicitly set
-      	// width and height
+        // Explicitly set height
+        // Contianer has many options you can pass it,
+        // Most widgets do *not* allow you to explicitly set
+        // width and height
         width: 230.0,
         height: 50.0,
         alignment: Alignment.center,
@@ -31,13 +31,13 @@ class GoogleAuthButton extends StatelessWidget {
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          	// Padding is a convenience widget that adds Padding to it's child
+            // Padding is a convenience widget that adds Padding to it's child
             new Padding(
               padding: const EdgeInsets.only(right: 20.0),
               // Image, like everyhting, is just a class.
               // This constructor expects an image URL -- I found this one on Google
- 							child: new Image.network(
-                'https://diylogodesigns.com/blog/wp-content/uploads/2016/04/google-logo-icon-PNG-Transparent-Background.png',
+              child: new Image.network(
+                'http://diylogodesigns.com/blog/wp-content/uploads/2016/04/google-logo-icon-PNG-Transparent-Background.png',
                 width: 30.0,
               ),
             ),

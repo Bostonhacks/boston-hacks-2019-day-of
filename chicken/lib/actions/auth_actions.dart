@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-// gives us access to `@required`
 import 'package:flutter/foundation.dart';
 
-class LogIn {}
+class LogIn {
+  LogIn();
+}
 
 class LogInSuccessful {
   final FirebaseUser user;
 
-  LogInSuccessful({ @required this.user});
+  LogInSuccessful({@required this.user});
 
   @override
   String toString() {
@@ -20,7 +21,7 @@ class LogInFail {
   LogInFail(this.error);
   @override
   String toString() {
-    return 'LogIn{There was an error loggin in: $error}';
+    return 'LogIn{There was an error logging in: $error}';
   }
 }
 
@@ -31,5 +32,13 @@ class LogOutSuccessful {
   @override
   String toString() {
     return 'LogOut{user: null}';
+  }
+}
+
+class LogOutFail {
+  final dynamic error;
+  LogOutFail(this.error);
+  String toString() {
+    return '{There was an error logging out: $error}';
   }
 }

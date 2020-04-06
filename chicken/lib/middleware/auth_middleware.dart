@@ -1,25 +1,20 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:chicken/actions/auth_actions.dart';
 import 'package:chicken/models/app_state.dart';
 import 'package:redux/redux.dart';
 
-List<Middleware<AppState>> createAuthMiddleware(context) {
-  final logIn = _createLogInMiddleware(context);
+List<Middleware<AppState>> createAuthMiddleware() {
+  final logIn = _createLogInMiddleware();
   final logOut = _createLogOutMiddleware();
-
-  // Built in redux method that tells your store that these
-  // are middleware methods.
-  //
-  // As the app grows, we can add more Auth related middleware
-  // here.
   return [
     new TypedMiddleware<AppState, LogIn>(logIn),
     new TypedMiddleware<AppState, LogOut>(logOut)
   ];
 }
 
-Middleware<AppState> _createLogInMiddleware(context) {
+Middleware<AppState> _createLogInMiddleware() {
   return (Store store, action, NextDispatcher next) async {
     FirebaseUser user;
     final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -46,14 +41,15 @@ Middleware<AppState> _createLogInMiddleware(context) {
 
 Middleware<AppState> _createLogOutMiddleware() {
   return (Store store, action, NextDispatcher next) async {
-		// Temporary instance
-		final FirebaseAuth _auth = FirebaseAuth.instance;
-    try {
-      await _auth.signOut();
-      print('logging out...');
-      store.dispatch(new LogOutSuccessful());
-    } catch (error) {
-      print(error);
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    if (action is LogOut) {
+      try {
+        await _auth.signOut();
+        print('logging out...');
+        store.dispatch(new LogOutSuccessful());
+      } catch (error) {
+        store.dispatch(new LogOutFail(error));
+      }
     }
-	};
+  };
 }
