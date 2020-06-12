@@ -18,7 +18,7 @@ Map<String, WidgetBuilder> getRoutes(context, store) {
   return {
     '/': (BuildContext context) => new StoreBuilder<AppState>(
           builder: (context, store) {
-            return new MyHomePage();
+            return new HomePage('MeSuite');
           },
         ),
     '/login': (BuildContext context) => new StoreBuilder<AppState>(
