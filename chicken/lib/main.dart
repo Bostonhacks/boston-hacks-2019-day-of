@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:chicken/middlewares/auth_middleware.dart';
+import 'package:chicken/middleware/auth_middleware.dart';
 import 'package:chicken/reducers/app_reducer.dart';
 import 'package:chicken/routes.dart';
 import 'package:redux/redux.dart';

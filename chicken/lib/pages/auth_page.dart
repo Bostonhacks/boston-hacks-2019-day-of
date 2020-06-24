@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:chicken/containers/auth_button/auth_button_container.dart';
+import 'package:chicken/containers/auth_button_container.dart';
 
 class AuthPage extends StatelessWidget {
   @override
