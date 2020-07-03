@@ -5,6 +5,9 @@ import 'package:chicken/sign_in.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:chicken/scan_page.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
 
 class Dashboard extends StatelessWidget {
   @override
@@ -40,8 +43,8 @@ class Dashboard extends StatelessWidget {
           mainAxisSpacing: 12.0,
           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           children: <Widget>[
-            makeDashboardItem(context,"Scan people", Icons.scanner, 0xFFFE745F),
-            makeDashboardItem(context,"Get Schedule", Icons.schedule, 0xFFF6D374),
+            makeDashboardItem(context,"Scan people", Icons.scanner, 0xFFFE745F, 1),
+            makeDashboardItem(context,"Get Schedule", Icons.schedule, 0xFFF6D374, 2),
           ],
           staggeredTiles: [
             StaggeredTile.extent(2, 130.0),
@@ -73,7 +76,16 @@ class Dashboard extends StatelessWidget {
       ),
     );
   }
-   Card makeDashboardItem(BuildContext context,String title, IconData icon, int color) {
+  
+   Card makeDashboardItem(BuildContext context,String title, IconData icon, int color,  int selection) {
+     _launchURL() async {
+  const url = 'https://bostonhacks.io';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
     return Card(
       color: Colors.white,
       elevation: 14.0,
@@ -83,10 +95,17 @@ class Dashboard extends StatelessWidget {
   ),
       child:
       InkWell ( 
-        onTap: () => Navigator.push(
+        onTap: () {
+          if (selection == 1){
+            Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ScanPage()),
-          ),
+          );
+          }
+          else if (selection == 2){
+            _launchURL();
+          }
+        },
             child: IgnorePointer(
         child:Center(
         child:Padding(
