@@ -4,7 +4,9 @@ import 'package:chicken/actions/auth_actions.dart';
 import 'package:chicken/models/app_state.dart';
 import 'package:chicken/containers/google_auth_button.dart';
 import 'package:chicken/pages/auth_page.dart';
+import 'package:chicken/pages/dashboard_page.dart';
 import 'package:redux/redux.dart';
+
 
 class GoogleAuthButtonContainer extends StatelessWidget {
   GoogleAuthButtonContainer({Key key}) : super(key: key);
@@ -39,9 +41,11 @@ class _ViewModel {
           var route = new MaterialPageRoute(
               settings: new RouteSettings(name: '/login'),
               builder: (context) => new AuthPage());
-          Navigator
-              .of(context)
-              .pushAndRemoveUntil(route, ModalRoute.withName('/'));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DashboardPage(argument: "hello",),
+              ));;
         } else {
           store.dispatch(new LogIn());
           Navigator.of(context).pushNamed('/loading');

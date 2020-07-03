@@ -3,7 +3,8 @@ library routes;
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:chicken/pages/auth_page.dart';
-import 'package:chicken/pages/home_page.dart';
+//import 'package:chicken/pages/home_page.dart';
+import 'package:chicken/pages/dashboard_page.dart';
 import 'package:chicken/pages/loading_page.dart';
 
 import 'models/app_state.dart';
@@ -18,7 +19,7 @@ Map<String, WidgetBuilder> getRoutes(context, store) {
   return {
     '/': (BuildContext context) => new StoreBuilder<AppState>(
           builder: (context, store) {
-            return new MyHomePage();
+            return new DashboardPage();
           },
         ),
     '/login': (BuildContext context) => new StoreBuilder<AppState>(

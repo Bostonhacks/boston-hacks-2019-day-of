@@ -18,8 +18,8 @@ class AuthPage extends StatelessWidget {
                 end: Alignment.bottomLeft,
                 stops: [0.2, 1.0],
                 colors: [
-                  const Color(0xFF3744B0),
-                  const Color(0xFF3799B0),
+                  const Color(0xFFFAFAFA),
+                  const Color(0xFFFAFAFA),
                 ],
               ),
             ),

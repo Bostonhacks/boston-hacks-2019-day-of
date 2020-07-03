@@ -34,10 +34,8 @@ class GoogleAuthButton extends StatelessWidget {
             // Padding is a convenience widget that adds Padding to it's child
             new Padding(
               padding: const EdgeInsets.only(right: 20.0),
-              // Image, like everyhting, is just a class.
-              // This constructor expects an image URL -- I found this one on Google
               child: new Image.network(
-                'http://diylogodesigns.com/blog/wp-content/uploads/2016/04/google-logo-icon-PNG-Transparent-Background.png',
+                'https://media-exp1.licdn.com/dms/image/C4D0BAQHiNSL4Or29cg/company-logo_200_200/0?e=1602115200&v=beta&t=1TaEC-RavQkQU43_Tw4UqQ6NSUUK_qlC8kaOCblIxj0',
                 width: 30.0,
               ),
             ),

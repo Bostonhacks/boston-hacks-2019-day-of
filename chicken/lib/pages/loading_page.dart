@@ -16,14 +16,14 @@ class LoadingPage extends StatelessWidget {
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  const Color(0xFF3744B0),
-                  const Color(0xFF3799B0),
+                  const Color(0xFFFAFAFA),
+                  const Color(0xFFFAFAFA),
                 ],
               ),
             ),
             child: new Text(
-              'suite',
-              style: Theme.of(context).textTheme.display4,
+              'Loading',
+              style: Theme.of(context).textTheme.headline,
             ),
           ),
         ],
