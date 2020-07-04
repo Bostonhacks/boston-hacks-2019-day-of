@@ -1,39 +1,52 @@
-// Copyright (c) 2019 Souvik Biswas
-
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:chicken/middleware/auth_middleware.dart';
+import 'package:chicken/reducers/app_reducer.dart';
+import 'package:chicken/routes.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_logging/redux_logging.dart';
 
-import 'login_page.dart';
+import 'models/app_state.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  var store = new Store<AppState>(
+    appReducer,
+    initialState: new AppState(),
+    distinct: true,
+    middleware: []
+      ..addAll(createAuthMiddleware())
+      ..add(new LoggingMiddleware.printer()), //new
+  );
+  runApp(new MainApp(
+    store: store
+  ));
+}
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
+  final String title = 'MeSuite';
+  final Store<AppState> store;
+
+  MainApp({this.store});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Login',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    // var store = new Store<AppState>(
+    //   appReducer,
+    //   initialState: new AppState(),
+    //   distinct: true,
+    //   middleware: []
+    //     ..addAll(createAuthMiddleware())
+    //     ..add(new LoggingMiddleware.printer()), //new
+    // );
+
+    return new StoreProvider(
+      store: store,
+      child: new MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: title,
+        routes: getRoutes(context, store),
+        initialRoute: '/login',
       ),
-      home: LoginPage(),
     );
   }
 }
