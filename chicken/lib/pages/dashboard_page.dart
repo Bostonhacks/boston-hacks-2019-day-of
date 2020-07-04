@@ -1,18 +1,19 @@
-
 import 'package:flutter/material.dart';
-import 'package:chicken/login_page.dart';
-import 'package:chicken/sign_in.dart';
+import 'package:chicken/middleware/auth_middleware.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:chicken/scan_page.dart';
+import 'package:chicken/pages/scan_page.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:chicken/containers/auth_button_container.dart';
 
 
 
-class Dashboard extends StatelessWidget {
+class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new WillPopScope(
+    onWillPop: () async => false,
+    child: Scaffold(
       body: Container(
         child: Center(
           child: Column(
@@ -30,7 +31,7 @@ class Dashboard extends StatelessWidget {
              
               Text(
                 "Hello, " + name,
-                style: GoogleFonts.roboto(textStyle:Theme.of(context).textTheme.display1),
+                style: GoogleFonts.roboto(textStyle:Theme.of(context).textTheme.display1, color: Colors.black),
               ),
               SizedBox(height: 20),
               Container(
@@ -45,35 +46,21 @@ class Dashboard extends StatelessWidget {
           children: <Widget>[
             makeDashboardItem(context,"Scan people", Icons.scanner, 0xFFFE745F, 1),
             makeDashboardItem(context,"Get Schedule", Icons.schedule, 0xFFF6D374, 2),
+            makeDashboardItem(context,"View People", Icons.people, 0xFF0098FF, 3),
           ],
           staggeredTiles: [
             StaggeredTile.extent(2, 130.0),
+            StaggeredTile.extent(1, 150.0),
             StaggeredTile.extent(1, 150.0)
           ],
         ),
       ),
-              SizedBox(height: 40),
-              RaisedButton(
-                onPressed: () {
-                  signOutGoogle();
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) {return LoginPage();}), ModalRoute.withName('/'));
-                },
-                color: Color(0xFF4BBC79),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Sign Out',
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                ),
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40)),
-              )
+              GoogleAuthButtonContainer()
             ],
           ),
         ),
       ),
+    )
     );
   }
   
@@ -89,7 +76,7 @@ class Dashboard extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 14.0,
-      shadowColor: Color(0x802196F3),
+      shadowColor: Color(0xFFE6C8BC),
      shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(24.0),
   ),
@@ -99,7 +86,7 @@ class Dashboard extends StatelessWidget {
           if (selection == 1){
             Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ScanPage()),
+          MaterialPageRoute(builder: (context) => MyHomePage()),
           );
           }
           else if (selection == 2){

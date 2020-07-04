@@ -15,13 +15,13 @@ import 'dart:typed_data';
 //       debugShowCheckedModeBanner: false,
 //     ));
 
-class ScanPage extends StatefulWidget {
-  ScanPage();
+class MyHomePage extends StatefulWidget {
+  MyHomePage();
   @override
-  ScanPageState createState() => ScanPageState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class ScanPageState extends State<ScanPage> {
+class MyHomePageState extends State<MyHomePage> {
   CameraLensDirection _direction = CameraLensDirection.back;
   bool _runDetection = false;
   bool _isDetecting = false;
